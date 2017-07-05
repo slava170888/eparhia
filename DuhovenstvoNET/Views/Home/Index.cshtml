@@ -1,0 +1,7 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <eparhia-app>Загрузка...</eparhia-app>}
+else
+{
+    @Html.Partial("_LoginPartial")
+}

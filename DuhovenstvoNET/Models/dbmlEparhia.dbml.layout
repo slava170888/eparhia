@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="dbmlEparhia">
+  <DataContextMoniker Name="/dbmlEparhiaDataContext" />
+  <nestedChildShapes>
+    <classShape Id="2bac7e3a-dd99-4775-84f3-97c4a17628c2" absoluteBounds="1.125, 2.125, 2, 4.4631168619791666">
+      <DataClassMoniker Name="/dbmlEparhiaDataContext/Person" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fdb786fc-f4dc-4e57-9fc6-efad8ac9ae44" absoluteBounds="1.1400000000000001, 2.585, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fdf2d70f-ab20-4a94-ba03-9fc78b56513d" absoluteBounds="4, 2.75, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/dbmlEparhiaDataContext/PersonType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="12a37b11-9675-4545-a0c0-c22f254c027d" absoluteBounds="4.015, 3.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4 : 3.34699625651042); (3.125 : 3.34699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbmlEparhiaDataContext/PersonType/PersonType_Person" />
+      <nodes>
+        <classShapeMoniker Id="fdf2d70f-ab20-4a94-ba03-9fc78b56513d" />
+        <classShapeMoniker Id="2bac7e3a-dd99-4775-84f3-97c4a17628c2" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
