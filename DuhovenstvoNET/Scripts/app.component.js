@@ -9,14 +9,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'ASP.NET MVC 5 with Angular 2';
-        this.skills = ['MVC 5', 'Angular 2', 'TypeScript', 'Visual Studio 2015'];
-        this.myskills = this.skills[2];
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'eparhia-app',
-            template: "    \n    <h2>My favorite skill is: {{myskills}}</h2>\n    <p>Skill:</p>\n    <ul>\n      <li *ngFor=\"let skl of skills\">\n        {{ skl }}\n      </li>\n    </ul>\n\n    <eparhia-hello></eparhia-hello>\n  "
+            templateUrl: "App/app.component.html",
+            styleUrls: ["App/app.component.css"]
         })
     ], AppComponent);
     return AppComponent;

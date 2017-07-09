@@ -1,0 +1,18 @@
+﻿.listPersons
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.itemPerson {
+    margin-top: 25px;
+    background: lightgray;
+}
+
+.example-form {
+    width: 500px;
+}
+
+.example-full-width {
+    width: 100%;
+}

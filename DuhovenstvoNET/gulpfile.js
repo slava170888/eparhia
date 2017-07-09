@@ -16,6 +16,8 @@ gulp.task("scriptsNStyles", function() {
             'systemjs/dist/*.js',
             'reflect-metadata/*.js',
             'rxjs/**',
+            'angular-2-data-table/**',
+            'hammerjs/**',
             'zone.js/dist/*.js',
             '@angular/**/bundles/*.js',            
             'bootstrap/dist/js/*.js'

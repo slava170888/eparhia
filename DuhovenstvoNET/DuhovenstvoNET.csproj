@@ -110,12 +110,21 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -185,11 +194,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\PersonController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -204,12 +215,21 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="Models\Repository\BaseRepository.cs" />
+    <Compile Include="Models\Repository\PersonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\app.component.css" />
+    <Content Include="App\app.component.html" />
     <Content Include="App\hello\hello.component.css" />
     <Content Include="App\hello\hello.component.html" />
+    <Content Include="App\person-card\person-card.component.css" />
+    <Content Include="App\person-card\person-card.component.html" />
+    <Content Include="App\person\person.component.css" />
+    <Content Include="App\person\person.component.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -230,6 +250,12 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="gulpfile.js" />
+    <Content Include="libs\%40angular\animations\bundles\animations-browser-testing.umd.js" />
+    <Content Include="libs\%40angular\animations\bundles\animations-browser-testing.umd.min.js" />
+    <Content Include="libs\%40angular\animations\bundles\animations-browser.umd.js" />
+    <Content Include="libs\%40angular\animations\bundles\animations-browser.umd.min.js" />
+    <Content Include="libs\%40angular\animations\bundles\animations.umd.js" />
+    <Content Include="libs\%40angular\animations\bundles\animations.umd.min.js" />
     <Content Include="libs\%40angular\common\bundles\common-testing.umd.js" />
     <Content Include="libs\%40angular\common\bundles\common-testing.umd.min.js" />
     <Content Include="libs\%40angular\common\bundles\common.umd.js" />
@@ -248,6 +274,8 @@
     <Content Include="libs\%40angular\http\bundles\http-testing.umd.min.js" />
     <Content Include="libs\%40angular\http\bundles\http.umd.js" />
     <Content Include="libs\%40angular\http\bundles\http.umd.min.js" />
+    <Content Include="libs\%40angular\material\bundles\material.umd.js" />
+    <Content Include="libs\%40angular\material\bundles\material.umd.min.js" />
     <Content Include="libs\%40angular\platform-browser-dynamic\bundles\platform-browser-dynamic-testing.umd.js" />
     <Content Include="libs\%40angular\platform-browser-dynamic\bundles\platform-browser-dynamic-testing.umd.min.js" />
     <Content Include="libs\%40angular\platform-browser-dynamic\bundles\platform-browser-dynamic.umd.js" />
@@ -1044,10 +1072,17 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\person-card\person-card.component.js" />
+    <Content Include="Scripts\person\person.component.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\rxjs-operators.js" />
+    <Content Include="Scripts\shared\api_settings\config.service.js" />
+    <Content Include="Scripts\shared\interfaces.js" />
+    <Content Include="Scripts\shared\person\person.js" />
+    <Content Include="Scripts\shared\person\person.service.js" />
     <Content Include="Scripts\systemjs.config.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1085,6 +1120,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="App\tsconfig.json" />
     <Content Include="Scripts\main.js.map" />
+    <Content Include="Scripts\person\person.component.js.map" />
+    <Content Include="Scripts\shared\api_settings\config.service.js.map" />
+    <Content Include="Scripts\shared\interfaces.js.map" />
+    <Content Include="Scripts\shared\person\person.js.map" />
+    <Content Include="Scripts\shared\person\person.service.js.map" />
+    <Content Include="Scripts\rxjs-operators.js.map" />
+    <Content Include="Scripts\person-card\person-card.component.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1112,6 +1154,13 @@
     <TypeScriptCompile Include="App\app.module.ts" />
     <TypeScriptCompile Include="App\hello\hello.component.ts" />
     <TypeScriptCompile Include="App\main.ts" />
+    <TypeScriptCompile Include="App\person-card\person-card.component.ts" />
+    <TypeScriptCompile Include="App\person\person.component.ts" />
+    <TypeScriptCompile Include="App\rxjs-operators.ts" />
+    <TypeScriptCompile Include="App\shared\api_settings\config.service.ts" />
+    <TypeScriptCompile Include="App\shared\interfaces.ts" />
+    <TypeScriptCompile Include="App\shared\person\person.service.ts" />
+    <TypeScriptCompile Include="App\shared\person\person.ts" />
     <TypeScriptCompile Include="libs\rxjs\add\observable\bindCallback.d.ts" />
     <TypeScriptCompile Include="libs\rxjs\add\observable\bindNodeCallback.d.ts" />
     <TypeScriptCompile Include="libs\rxjs\add\observable\combineLatest.d.ts" />
