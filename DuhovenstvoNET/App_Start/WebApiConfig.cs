@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http.Cors;
 
 namespace DuhovenstvoNET
 {
@@ -8,6 +9,9 @@ namespace DuhovenstvoNET
         public static void Register(HttpConfiguration config)
         {
             //config.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             config.Routes.MapHttpRoute(
                name: "DefaultApiWithAction",

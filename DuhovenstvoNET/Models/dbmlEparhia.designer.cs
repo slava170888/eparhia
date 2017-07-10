@@ -30,12 +30,12 @@ namespace DuhovenstvoNET.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertPerson(Person instance);
-    partial void UpdatePerson(Person instance);
-    partial void DeletePerson(Person instance);
     partial void InsertPersonType(PersonType instance);
     partial void UpdatePersonType(PersonType instance);
     partial void DeletePersonType(PersonType instance);
+    partial void InsertPerson(Person instance);
+    partial void UpdatePerson(Person instance);
+    partial void DeletePerson(Person instance);
     #endregion
 		
 		public dbmlEparhiaDataContext() : 
@@ -68,6 +68,14 @@ namespace DuhovenstvoNET.Models
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<PersonType> PersonTypes
+		{
+			get
+			{
+				return this.GetTable<PersonType>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Person> Persons
 		{
 			get
@@ -75,13 +83,119 @@ namespace DuhovenstvoNET.Models
 				return this.GetTable<Person>();
 			}
 		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PersonType")]
+	public partial class PersonType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		public System.Data.Linq.Table<PersonType> PersonTypes
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private EntitySet<Person> _Persons;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public PersonType()
+		{
+			this._Persons = new EntitySet<Person>(new Action<Person>(this.attach_Persons), new Action<Person>(this.detach_Persons));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
-				return this.GetTable<PersonType>();
+				return this._Id;
 			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonType_Person", Storage="_Persons", ThisKey="Id", OtherKey="Id_PersonType")]
+		public EntitySet<Person> Persons
+		{
+			get
+			{
+				return this._Persons;
+			}
+			set
+			{
+				this._Persons.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Persons(Person entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonType = this;
+		}
+		
+		private void detach_Persons(Person entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonType = null;
 		}
 	}
 	
@@ -129,6 +243,8 @@ namespace DuhovenstvoNET.Models
 		
 		private string _Desiderate;
 		
+		private System.Nullable<System.DateTime> _Consecration;
+		
 		private EntityRef<PersonType> _PersonType;
 		
     #region Extensibility Method Definitions
@@ -173,6 +289,8 @@ namespace DuhovenstvoNET.Models
     partial void OnId_PersonTypeChanged();
     partial void OnDesiderateChanging(string value);
     partial void OnDesiderateChanged();
+    partial void OnConsecrationChanging(System.Nullable<System.DateTime> value);
+    partial void OnConsecrationChanged();
     #endregion
 		
 		public Person()
@@ -565,6 +683,26 @@ namespace DuhovenstvoNET.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Consecration", DbType="Date")]
+		public System.Nullable<System.DateTime> Consecration
+		{
+			get
+			{
+				return this._Consecration;
+			}
+			set
+			{
+				if ((this._Consecration != value))
+				{
+					this.OnConsecrationChanging(value);
+					this.SendPropertyChanging();
+					this._Consecration = value;
+					this.SendPropertyChanged("Consecration");
+					this.OnConsecrationChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonType_Person", Storage="_PersonType", ThisKey="Id_PersonType", OtherKey="Id", IsForeignKey=true)]
 		public PersonType PersonType
 		{
@@ -617,120 +755,6 @@ namespace DuhovenstvoNET.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PersonType")]
-	public partial class PersonType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private EntitySet<Person> _Persons;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public PersonType()
-		{
-			this._Persons = new EntitySet<Person>(new Action<Person>(this.attach_Persons), new Action<Person>(this.detach_Persons));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonType_Person", Storage="_Persons", ThisKey="Id", OtherKey="Id_PersonType")]
-		public EntitySet<Person> Persons
-		{
-			get
-			{
-				return this._Persons;
-			}
-			set
-			{
-				this._Persons.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Persons(Person entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonType = this;
-		}
-		
-		private void detach_Persons(Person entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonType = null;
 		}
 	}
 }

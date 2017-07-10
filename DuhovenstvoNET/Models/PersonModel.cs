@@ -25,6 +25,8 @@ namespace DuhovenstvoNET.Models
         public string Name2 { get; set; }
         public string Name { get; set; }
         public int Id_PersonType { get; set; }
+        public DateTime? Consecration { get; set; }
+
         public string dop;
     }
 }
